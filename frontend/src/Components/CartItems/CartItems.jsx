@@ -10,12 +10,12 @@ const CartItems = () => {
   return (
     <div className="cartitems">
       <div className="cartitems-format-main">
-        <p>Products</p>
-        <p>Title</p>
-        <p>Price</p>
-        <p>Quantity</p>
+        <p>Productos</p>
+        <p>Titulo</p>
+        <p>Precio</p>
+        <p>Cantidad</p>
         <p>Total</p>
-        <p>Remove</p>
+        <p>Remover</p>
       </div>
       <hr />
       {products.map((e)=>{
@@ -39,7 +39,7 @@ const CartItems = () => {
       
       <div className="cartitems-down">
         <div className="cartitems-total">
-          <h1>Cart Totals</h1>
+          <h1>Carro total</h1>
           <div>
             <div className="cartitems-total-item">
               <p>Subtotal</p>
@@ -59,10 +59,10 @@ const CartItems = () => {
           <button>PROCEED TO CHECKOUT</button>
         </div>
         <div className="cartitems-promocode">
-          <p>If you have a promo code, Enter it here</p>
+          <p>Si tienes un código de promoción, ingresalo aquí</p>
           <div className="cartitems-promobox">
             <input type="text" placeholder="promo code" />
-            <button>Submit</button>
+            <button>Enviar</button>
           </div>
         </div>
       </div>

@@ -11,14 +11,13 @@ const Footer = () => {
     <div className='footer'>
       <div className="footer-logo">
         <img src={footer_logo} alt="" />
-        <p>SHOPPER</p>
+        <p>ARTESANIAS JIMENEZ</p>
       </div>
       <ul className="footer-links">
-        <li>Company</li>
-        <li>Products</li>
-        <li>Offices</li>
-        <li>About</li>
-        <li>Contact</li>
+        <li>Compañía</li>
+        <li>Productos</li>
+        <li>Acerca</li>
+        <li>Contacto</li>
       </ul>
       <div className="footer-social-icons">
         <div className="footer-icons-container">
@@ -33,7 +32,7 @@ const Footer = () => {
       </div>
       <div className="footer-copyright">
         <hr />
-        <p>Copyright @ 2023 - All Right Reserved.</p>
+        <p>Copyright @ 2024 - Todos los derechos reservados.</p>
       </div>
     </div>
   )

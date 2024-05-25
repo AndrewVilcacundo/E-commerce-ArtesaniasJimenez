@@ -37,23 +37,21 @@ const ProductDisplay = (props) => {
           <div className="productdisplay-right-price-new">${product.new_price}</div>
         </div>
         <div className="productdisplay-right-description">
-          A lightweight, usually knitted, pullover shirt, close-fitting and with
-          a round neckline and short sleeves, worn as an undershirt or outer
-          garment.
+          Esta es una breve Descripción del producto
         </div>
         <div className="productdisplay-right-size">
-          <h1>Select Size</h1>
+          <h1>Selecciona tamaño</h1>
           <div className="productdisplay-right-sizes">
-            <div>S</div>
-            <div>M</div>
-            <div>L</div>
-            <div>XL</div>
-            <div>XXL</div>
+            <div>10cm</div>
+            <div>10cm</div>
+            <div>10cm</div>
+            <div>10cm</div>
+            <div>10cm</div>
           </div>
         </div>
-        <button onClick={()=>{addToCart(product.id)}}>ADD TO CART</button>
-        <p className="productdisplay-right-category"><span>Category :</span> Women, T-shirt, Crop Top</p>
-        <p className="productdisplay-right-category"><span>Tags :</span> Modern, Latest</p>
+        <button onClick={()=>{addToCart(product.id)}}>AÑADIR AL CARRITO</button>
+        <p className="productdisplay-right-category"><span>Category :</span> Paja Toquilla, Individuales, etc</p>
+        <p className="productdisplay-right-category"><span>Tags :</span> Moderno, Resistente</p>
       </div>
     </div>
   );
