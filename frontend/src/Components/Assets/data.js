@@ -3,6 +3,7 @@ import p2_img from './CHOCOBANANO.png'
 import p3_img from './individuales2.jpg'
 import p4_img from './individuales3.jpg'
 
+//ESTOS SON LOS PRODUCTOS RELACIONADOS
 let data_product = [
   {
     id:1,
