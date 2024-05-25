@@ -1,5 +1,5 @@
 import p1_img from "./cesta.jpg";
-import p2_img from "./cesta1.jgp";
+import p2_img from "./cesta1.jpg";
 import p3_img from "./cesto.jpg";
 import p4_img from "./cesto1.jpg";
 import p5_img from "./bolsos.jpg"
@@ -30,7 +30,7 @@ import p29_img from "./individuales6.jpg"
 import p30_img from "./individuales7.jpg"
 import p31_img from "./individuales8.jpg"
 
-let all_product = [
+let allproducts = [
   {
     id: 1,
     name: "Cesta rectangular en fibra",
@@ -279,46 +279,7 @@ let all_product = [
     new_price: 85.0,
     old_price: 120.5,
   },
-  {
-    id: 32,
-    name: "Boys Orange Colourblocked Hooded Sweatshirt",
-    category: "kid",
-    image: p32_img,
-    new_price: 85.0,
-    old_price: 120.5,
-  },
-  {
-    id: 33,
-    name: "Boys Orange Colourblocked Hooded Sweatshirt",
-    category: "kid",
-    image: p33_img,
-    new_price: 85.0,
-    old_price: 120.5,
-  },
-  {
-    id: 34,
-    name: "Boys Orange Colourblocked Hooded Sweatshirt",
-    category: "kid",
-    image: p34_img,
-    new_price: 85.0,
-    old_price: 120.5,
-  },
-  {
-    id: 35,
-    name: "Boys Orange Colourblocked Hooded Sweatshirt",
-    category: "kid",
-    image: p35_img,
-    new_price: 85.0,
-    old_price: 120.5,
-  },
-  {
-    id: 36,
-    name: "Boys Orange Colourblocked Hooded Sweatshirt",
-    category: "kid",
-    image: p36_img,
-    new_price: 85.0,
-    old_price: 120.5,
-  },
+
 ];
 
-export default all_product;
+export default allproducts;

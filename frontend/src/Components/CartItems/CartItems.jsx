@@ -58,15 +58,11 @@ const CartItems = () => {
           </div>
           <button>PROCEED TO CHECKOUT</button>
         </div>
-        <div className="cartitems-promocode">
-          <p>Si tienes un código de promoción, ingresalo aquí</p>
-          <div className="cartitems-promobox">
-            <input type="text" placeholder="promo code" />
-            <button>Enviar</button>
+        
+           
           </div>
         </div>
-      </div>
-    </div>
+  
   );
 };
 

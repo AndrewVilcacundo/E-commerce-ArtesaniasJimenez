@@ -5,9 +5,13 @@ import star_dull_icon from "../Assets/star_dull_icon.png";
 import { ShopContext } from "../../Context/ShopContext";
 
 const ProductDisplay = (props) => {
+  const { product } = props;
+  const { addToCart } = useContext(ShopContext);
 
-  const {product} = props;
-  const {addToCart} = useContext(ShopContext);
+  // Verifica si product está definido y tiene las propiedades necesarias
+  if (!product || !product.image || !product.name || !product.old_price || !product.new_price) {
+    return <div>Loading...</div>; // O algún otro componente de respaldo
+  }
 
   return (
     <div className="productdisplay">
@@ -49,7 +53,7 @@ const ProductDisplay = (props) => {
             <div>10cm</div>
           </div>
         </div>
-        <button onClick={()=>{addToCart(product.id)}}>AÑADIR AL CARRITO</button>
+        <button onClick={() => { addToCart(product.id) }}>AÑADIR AL CARRITO</button>
         <p className="productdisplay-right-category"><span>Category :</span> Paja Toquilla, Individuales, etc</p>
         <p className="productdisplay-right-category"><span>Tags :</span> Moderno, Resistente</p>
       </div>
