@@ -1,4 +1,4 @@
-.newsletter{
+/* .newsletter{
     width: 90%;
     max-width: 1200px;
     box-sizing: border-box;
@@ -57,7 +57,7 @@
 }
 
 /* ----------- media query--------- */
-
+/*
 @media(max-width:1280px){
     .newsletter h1{
         font-size: 35px;
@@ -96,4 +96,4 @@
     .newsletter div button{
         font-size: 12px;
     }
-}
+} 

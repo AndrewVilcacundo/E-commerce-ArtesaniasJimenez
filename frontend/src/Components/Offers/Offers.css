@@ -7,7 +7,7 @@
     justify-content: space-between;
     padding: 0px 8%;
     margin-bottom: 150px;
-    background: linear-gradient(180deg, #fde1ff 0%,#e1ffea22 60%);;
+    background: linear-gradient(180deg, #A75430 0%,#e1ffea22 60%);;
 }
 
 .offers-left h1{
@@ -33,8 +33,9 @@
     cursor: pointer;
 }
 .offers-right img{
-    width: 320px;
-    padding-top: 20px;
+    width: 500px;
+    height: 320px;
+    padding-top: 100px;
 }
 
 /* ----- media query----- */

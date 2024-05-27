@@ -10,9 +10,9 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
+
 // Database Connection With MongoDB
-//mongoose.connect("mongodb+srv://andrewmateo1503:qj8dywFxMXhfqYzu@cluster0.qejgcvk.mongodb.net/tesis");
-mongoose.connect("mongodb+srv://sandovalbrandon1027:PvQEAZBx8F2aJyLU@cluster0.ixeawgw.mongodb.net/e-comerce");
+mongoose.connect("mongodb+srv://andrewmateo1503:qj8dywFxMXhfqYzu@cluster0.qejgcvk.mongodb.net/tesis");
 // paste your mongoDB Connection string above with password
 // password should not contain '@' special character
 
@@ -134,6 +134,9 @@ app.post('/login', async (req, res) => {
         return res.status(400).json({success: success, errors: "please try with correct email/password"})
     }
 })
+
+
+
 
 //Create an endpoint at ip/auth for regestring the user in data base & sending token
 app.post('/signup', async (req, res) => {
