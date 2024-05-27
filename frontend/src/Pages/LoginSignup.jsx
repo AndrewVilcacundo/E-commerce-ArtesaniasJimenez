@@ -66,15 +66,15 @@ const LoginSignup = () => {
           <input type="password" placeholder="Password" name="password" value={formData.password} onChange={changeHandler}/>
         </div>
 
-        <button onClick={()=>{state==="Login"?login():signup()}}>Continue</button>
+        <button onClick={()=>{state==="Login"?login():signup()}}>Continuar</button>
 
         {state==="Login"?
-        <p className="loginsignup-login">Create an account? <span onClick={()=>{setState("Sign Up")}}>Click here</span></p>
-        :<p className="loginsignup-login">Already have an account? <span onClick={()=>{setState("Login")}}>Login here</span></p>}
+        <p className="loginsignup-login">Crear una cuenta? <span onClick={()=>{setState("Sign Up")}}>Click aquí</span></p>
+        :<p className="loginsignup-login">Ya tienes una cuenta? <span onClick={()=>{setState("Login")}}>Login aquí</span></p>}
 
         <div className="loginsignup-agree">
           <input type="checkbox" name="" id="" />
-          <p>By continuing, i agree to the terms of use & privacy policy.</p>
+          <p>Al continuar, acepto los términos de uso y la política de privacidad.</p>
         </div>
       </div>
     </div>
