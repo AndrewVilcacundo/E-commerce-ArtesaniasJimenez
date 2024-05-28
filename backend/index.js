@@ -10,9 +10,8 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
-
 // Database Connection With MongoDB
-mongoose.connect("mongodb+srv://andrewmateo1503:qj8dywFxMXhfqYzu@cluster0.qejgcvk.mongodb.net/tesis");
+mongoose.connect("mongodb+srv://sandovalbrandon1027:PvQEAZBx8F2aJyLU@cluster0.ixeawgw.mongodb.net/e-comerce");
 // paste your mongoDB Connection string above with password
 // password should not contain '@' special character
 
