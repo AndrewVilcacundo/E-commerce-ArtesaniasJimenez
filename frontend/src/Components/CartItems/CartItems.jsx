@@ -56,7 +56,7 @@ const CartItems = () => {
               <h3>${getTotalCartAmount()}</h3>
             </div>
           </div>
-          <button>PROCEED TO CHECKOUT</button>
+          <button>PROCEDER A PAGAR</button>
         </div>
         
            
