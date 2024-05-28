@@ -34,14 +34,14 @@ let allproducts = [
   {
     id: 1,
     name: "Cesta rectangular en fibra",
-    category: "women",
+    category: "pajatoquilla",
     image: p1_img,
     new_price: 10.0,
   },
   {
     id: 2,
     name: "Cesta rectangular en fibra",
-    category: "women",
+    category: "pajatoquilla",
     image: p2_img,
     new_price: 10.0,
     old_price: 8.50,
@@ -49,21 +49,21 @@ let allproducts = [
   {
     id: 3,
     name: "Cesto de pajatoquilla con tapa, multiusos",
-    category: "women",
+    category: "pajatoquilla",
     image: p3_img,
     new_price: 12,
   },
   {
     id: 4,
     name: "Cesto de pajatoquilla con tapa, multiusos",
-    category: "women",
+    category: "pajatoquilla",
     image: p4_img,
     new_price: 12
   },
   {
     id: 5,
     name: "Bolsos tejidos en paja toquilla",
-    category: "women",
+    category: "pajatoquilla",
     image: p5_img,
     new_price: 45,
     old_price: 50,
@@ -71,7 +71,7 @@ let allproducts = [
   {
     id: 6,
     name: "Bolsos tejidos en paja toquilla",
-    category: "women",
+    category: "pajatoquilla",
     image: p6_img,
     new_price: 45,
     old_price: 50,
@@ -79,7 +79,7 @@ let allproducts = [
   {
     id: 7,
     name: "Bolsos tejidos en paja toquilla",
-    category: "women",
+    category: "pajatoquilla",
     image: p7_img,
     new_price: 45,
     old_price: 50,
@@ -87,7 +87,7 @@ let allproducts = [
   {
     id: 8,
     name: "Bolsos tejidos en paja toquilla",
-    category: "women",
+    category: "pajatoquilla",
     image: p8_img,
     new_price: 45,
     old_price: 50,
@@ -95,7 +95,7 @@ let allproducts = [
   {
     id: 9,
     name: "Bolsos tejidos en paja toquilla",
-    category: "women",
+    category: "pajatoquilla",
     image: p9_img,
     new_price: 45,
     old_price: 50,
@@ -103,7 +103,7 @@ let allproducts = [
   {
     id: 10,
     name: "Bolsos tejidos en paja toquilla",
-    category: "women",
+    category: "pajatoquilla",
     image: p10_img,
     new_price: 45,
     old_price: 50,
@@ -111,77 +111,77 @@ let allproducts = [
   {
     id: 11,
     name: "Canasta ovalada grande tejida en pajatoquilla",
-    category: "women",
+    category: "pajatoquilla",
     image: p11_img,
     new_price: 5
   },
   {
     id: 12,
     name: "Canasta ovalada grande tejida en pajatoquilla",
-    category: "women",
+    category: "pajatoquilla",
     image: p12_img,
     new_price: 5
   },
   {
     id: 13,
     name: "Canastas pequeñas con tapa tejidas en pajatoquilla",
-    category: "women",
+    category: "pajatoquilla",
     image: p13_img,
     new_price: 1.50
   },
   {
     id: 14,
     name: "Canastas pequeñas con tapa tejidas en pajatoquilla",
-    category: "women",
+    category: "pajatoquilla",
     image: p14_img,
     new_price: 1.50
   },
   {
     id: 15,
     name: "Canastas pequeñas con tapa en varios colores, tejidas en pajatoquilla",
-    category: "women",
+    category: "pajatoquilla",
     image: p15_img,
     new_price: 1.50
   },
   {
     id: 16,
     name: "Canastas pequeñas con tapa en varios colores, tejidas en pajatoquilla",
-    category: "women",
+    category: "pajatoquilla",
     image: p16_img,
     new_price: 1.50
   },
   {
     id: 17,
     name: "Canasto tejido en pajatoquilla",
-    category: "women",
+    category: "pajatoquilla",
     image: p17_img,
     new_price: 1.50
   },
   {
     id: 18,
     name: "Canasto tejido en pajatoquilla",
-    category: "women",
+    category: "pajatoquilla",
     image: p18_img,
     new_price: 12
   },
   {
     id: 19,
     name: "Cubierteros tejidos en pajatoquilla",
-    category: "women",
+    category: "pajatoquilla",
     image: p19_img,
     new_price: 5
   },
   {
     id: 20,
     name: "Cubierteros tejidos en pajatoquilla",
-    category: "women",
+    category: "pajatoquilla",
     image: p20_img,
     new_price: 5
   },
   {
     id: 21,
     name: "Desayunador con agarraderas de cabuya",
-    category: "men",
+    category: "totora",
     image: p21_img,
     new_price: 85.0,
     old_price: 120.5,
@@ -189,21 +189,21 @@ let allproducts = [
   {
     id: 22,
     name: "Desayunador con agarraderas de cabuya",
-    category: "men",
+    category: "totora",
     image: p22_img,
     new_price: 15,
   },
   {
     id: 23,
     name: "Hermosos individuales elaborados a mano en fibra de totora",
-    category: "men",
+    category: "totora",
     image: p23_img,
     new_price: 15
   },
   {
     id: 24,
     name: "Hermosos individuales elaborados a mano en fibra de totora",
-    category: "men",
+    category: "totora",
     image: p24_img,
     new_price: 3.50,
     old_price: 4.50,
@@ -211,7 +211,7 @@ let allproducts = [
   {
     id: 25,
     name: "Hermosos individuales elaborados a mano en fibra de totora",
-    category: "men",
+    category: "totora",
     image: p25_img,
     new_price: 3.50,
     old_price: 4.50,
@@ -219,7 +219,7 @@ let allproducts = [
   {
     id: 26,
     name: "Hermosos individuales elaborados a mano en fibra de totora",
-    category: "men",
+    category: "totora",
     image: p26_img,
     new_price: 3.50,
     old_price: 4.50,
@@ -227,7 +227,7 @@ let allproducts = [
   {
     id: 27,
     name: "Hermosos individuales elaborados a mano en fibra de totora",
-    category: "men",
+    category: "totora",
     image: p27_img,
     new_price: 3.50,
     old_price: 4.50
@@ -235,7 +235,7 @@ let allproducts = [
   {
     id: 28,
     name: "Hermosos individuales elaborados a mano en fibra de totora",
-    category: "men",
+    category: "totora",
     image: p28_img,
     new_price: 3.50,
     old_price: 4.50,
@@ -243,7 +243,7 @@ let allproducts = [
   {
     id: 29,
     name: "Hermosos individuales elaborados a mano en fibra de totora",
-    category: "men",
+    category: "totora",
     image: p29_img,
     new_price: 3.50,
     old_price: 4.50,
@@ -251,7 +251,7 @@ let allproducts = [
   {
     id: 30,
     name: "Hermosos individuales elaborados a mano en fibra de totora",
-    category: "men",
+    category: "totora",
     image: p30_img,
     new_price: 3.50,
     old_price: 4.50,
@@ -259,7 +259,7 @@ let allproducts = [
   {
     id: 31,
     name: "Hermosos individuales elaborados a mano en fibra de totora",
-    category: "men",
+    category: "totora",
     image: p31_img,
     new_price: 4.50
   },

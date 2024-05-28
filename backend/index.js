@@ -180,7 +180,7 @@ app.get("/newcollections", async (req, res) => {
   res.send(arr);
 });
 
-app.get("/popularinwomen", async (req, res) => {
+app.get("/popularinpajatoquilla", async (req, res) => {
 	let products = await Product.find({});
   let arr = products.splice(0,  4);
   console.log("Lo más popular en la tienda");
