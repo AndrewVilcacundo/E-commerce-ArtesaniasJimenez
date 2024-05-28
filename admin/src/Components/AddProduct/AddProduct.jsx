@@ -61,16 +61,16 @@ const AddProduct = () => {
     <div className="addproduct">
       <div className="addproduct-itemfield">
         <p>Título del producto</p>
-        <input type="text" name="name" value={productDetails.name} onChange={(e)=>{changeHandler(e)}} placeholder="Type here" />
+        <input type="text" name="name" value={productDetails.name} onChange={(e)=>{changeHandler(e)}} placeholder="Escribe aqui" />
       </div>
       <div className="addproduct-price">
         <div className="addproduct-itemfield">
           <p>Precio</p>
-          <input type="text" name="old_price" value={productDetails.old_price} onChange={(e)=>{changeHandler(e)}} placeholder="Type here" />
+          <input type="text" name="old_price" value={productDetails.old_price} onChange={(e)=>{changeHandler(e)}} placeholder="Escribe aqui" />
         </div>
         <div className="addproduct-itemfield">
           <p>Precio de oferta</p>
-          <input type="text" name="new_price" value={productDetails.new_price} onChange={(e)=>{changeHandler(e)}} placeholder="Type here" />
+          <input type="text" name="new_price" value={productDetails.new_price} onChange={(e)=>{changeHandler(e)}} placeholder="Escribe aqui" />
         </div>
       </div>
       <div className="addproduct-itemfield">
