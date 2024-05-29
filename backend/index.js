@@ -48,11 +48,9 @@ let transporter = nodemailer.createTransport({
 
 
 // Database Connection With MongoDB
-<<<<<<< HEAD
+
 mongoose.connect("mongodb+srv://sandovalbrandon1027:PvQEAZBx8F2aJyLU@cluster0.ixeawgw.mongodb.net/e-comerce");
-=======
-mongoose.connect("mongodb+srv://andrewmateo1503:kZujIsqjNPeRFbBX@cluster1.u8fdtxz.mongodb.net/tesis2");
->>>>>>> 8a71746afb459f71fbe4b00258e1152bc0194a6b
+//mongoose.connect("mongodb+srv://andrewmateo1503:kZujIsqjNPeRFbBX@cluster1.u8fdtxz.mongodb.net/tesis2");
 // paste your mongoDB Connection string above with password
 // password should not contain '@' special character
 
