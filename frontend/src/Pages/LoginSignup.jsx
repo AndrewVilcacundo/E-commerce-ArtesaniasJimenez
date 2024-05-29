@@ -48,7 +48,7 @@ const LoginSignup = () => {
 
       if (dataObj.success) {
         localStorage.setItem('auth-token',dataObj.token);
-        window.location.replace("/");
+        window.location.replace("/login");
       }
       else
       {
@@ -61,9 +61,9 @@ const LoginSignup = () => {
       <div className="loginsignup-container">
         <h1>{state}</h1>
         <div className="loginsignup-fields">
-          {state==="Sign Up"?<input type="text" placeholder="Your name" name="username" value={formData.username} onChange={changeHandler}/>:<></>}
-          <input type="email" placeholder="Email address" name="email" value={formData.email} onChange={changeHandler}/>
-          <input type="password" placeholder="Password" name="password" value={formData.password} onChange={changeHandler}/>
+          {state==="Sign Up"?<input type="text" placeholder="Tu nombre" name="username" value={formData.username} onChange={changeHandler}/>:<></>}
+          <input type="email" placeholder="Correo electronico" name="email" value={formData.email} onChange={changeHandler}/>
+          <input type="password" placeholder="Contraseña" name="password" value={formData.password} onChange={changeHandler}/>
         </div>
 
         <button onClick={()=>{state==="Login"?login():signup()}}>Continuar</button>
