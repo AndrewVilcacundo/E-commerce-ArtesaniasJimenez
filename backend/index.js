@@ -1,14 +1,51 @@
-const port = 4000;
-const express = require("express");
-const app = express();
-const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
-const multer = require("multer");
-const path = require("path");
-const cors = require("cors");
+import express from 'express';
+import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
+import multer from 'multer';
+import path from 'path';
+import cors from 'cors';
+import bcrypt from 'bcrypt'; 
+import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
 
+const port = 4000;
+const app = express();
+
+
+
+dotenv.config();
 app.use(express.json());
 app.use(cors());
+
+
+
+// Configura nodemailer
+let transporter = nodemailer.createTransport({
+  service: 'hotmail',
+  host: process.env.HOST_MAILTRAP,
+  port: parseInt(process.env.PORT_MAILTRAP),
+  auth: {
+    user: process.env.USER_MAILTRAP,
+    pass: process.env.PASS_MAILTRAP,
+  },
+  tls: {
+    rejectUnauthorized: false
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Database Connection With MongoDB
 mongoose.connect("mongodb+srv://sandovalbrandon1027:PvQEAZBx8F2aJyLU@cluster0.ixeawgw.mongodb.net/e-comerce");
@@ -36,14 +73,14 @@ app.use('/images', express.static('upload/images'));
 const fetchuser = async (req, res, next) => {
   const token = req.header("auth-token");
   if (!token) {
-    res.status(401).send({ errors: "Please authenticate using a valid token" });
+    res.status(401).send({ errors: "Por favor, autentíquese con un token válido." });
   }
   try {
     const data = jwt.verify(token, "secret_ecom");
     req.user = data.user;
     next();
   } catch (error) {
-    res.status(401).send({ errors: "Please authenticate using a valid token" });
+    res.status(401).send({ errors: "Por favor, autentíquese con un token válido." });
   }
 };
 
@@ -67,6 +104,10 @@ const Users = mongoose.model("Users", {
     type: Date,
     default: Date.now,
   },
+  isVerified:{
+    type: Boolean,
+    default: false,
+  }
 });
 
 // Schema for creating Product
@@ -113,7 +154,8 @@ app.post('/login', async (req, res) => {
     let success = false;
     let user = await Users.findOne({ email: req.body.email });
     if (user) {
-        const passCompare = req.body.password === user.password;
+      //comparando la contraseña con la ingrese primeramente
+        const passCompare = await bcrypt.compare(req.body.password, user.password)
         if (passCompare) {
             const data = {
                 user: {
@@ -126,11 +168,11 @@ app.post('/login', async (req, res) => {
 			res.json({ success, token });
         }
         else {
-            return res.status(400).json({success: success, errors: "please try with correct email/password"})
+            return res.status(400).json({success: success, errors: "por favor ingrese de nuevo su email o password"})
         }
     }
     else {
-        return res.status(400).json({success: success, errors: "please try with correct email/password"})
+        return res.status(400).json({success: success, errors: "por favor ingrese de nuevo su email o password"})
     }
 })
 
@@ -140,32 +182,99 @@ app.post('/login', async (req, res) => {
 //Create an endpoint at ip/auth for regestring the user in data base & sending token
 app.post('/signup', async (req, res) => {
   console.log("Sign Up");
-        let success = false;
-        let check = await Users.findOne({ email: req.body.email });
-        if (check) {
-            return res.status(400).json({ success: success, errors: "existing user found with this email" });
-        }
-        let cart = {};
-          for (let i = 0; i < 300; i++) {
-          cart[i] = 0;
-        }
-        const user = new Users({
-            name: req.body.username,
-            email: req.body.email,
-            password: req.body.password,
-            cartData: cart,
-        });
-        await user.save();
-        const data = {
-            user: {
-                id: user.id
-            }
-        }
-        
-        const token = jwt.sign(data, 'secret_ecom');
-        success = true; 
-        res.json({ success, token })
-    })
+  let success = false;
+
+  try {
+    let check = await Users.findOne({ email: req.body.email });
+    if (check) {
+      return res.status(400).json({ success: success, errors: "Usuario existente encontrada con este correo electrónico" });
+    }
+
+    let cart = {};
+    for (let i = 0; i < 300; i++) {
+      cart[i] = 0;
+    }
+
+    // Encriptar la contraseña
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+    const user = new Users({
+      name: req.body.username,
+      email: req.body.email,
+      password: hashedPassword,
+      cartData: cart,
+      isVerified: false, // Agrega un campo para verificar el correo
+    });
+
+    await user.save();
+
+    // Crear un token de verificación
+    const verificationToken = jwt.sign({ id: user.id }, 'verification_secret', { expiresIn: '1h' });
+
+    // Enviar correo de verificación
+    const verificationUrl = `http://localhost:${port}/verify/${verificationToken}`;
+    await transporter.sendMail({
+      from: 'brandon.sandoval@epn.edu.ec',
+      to: user.email,
+      subject: 'Verificación de correo electrónico',
+      html: `<p>Por favor, verifica tu correo electrónico haciendo clic en el siguiente enlace: <a href="${verificationUrl}">Verificar correo</a></p>`,
+    });
+
+    success = true;
+    res.json({ success, message: "Usuario registrado. Por favor, verifica tu correo electrónico." });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error interno del sistema");
+  }
+ 
+
+});
+
+
+
+app.get('/verify/:token', async (req, res) => {
+  try {
+    const { token } = req.params;
+    const decoded = jwt.verify(token, 'verification_secret');
+    const userId = decoded.id;
+
+    const user = await Users.findById(userId);
+    if (!user) {
+      return res.status(400).json({ success: false, message: "Usuario no encontrado." });
+    }
+
+    if (user.isVerified) {
+      return res.status(400).json({ success: false, message: "El usuario ya está verificado." });
+    }
+
+    user.isVerified = true;
+    await user.save();
+
+    res.json({ success: true, message: "Correo electrónico verificado correctamente." });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.get("/allproducts", async (req, res) => {
 	let products = await Product.find({});
@@ -176,7 +285,7 @@ app.get("/allproducts", async (req, res) => {
 app.get("/newcollections", async (req, res) => {
 	let products = await Product.find({});
   let arr = products.slice(1).slice(-8);
-  console.log("New Collections");
+  console.log("Nuevas collecciones");
   res.send(arr);
 });
 
@@ -193,7 +302,7 @@ app.post('/addtocart', fetchuser, async (req, res) => {
     let userData = await Users.findOne({_id:req.user.id});
     userData.cartData[req.body.itemId] += 1;
     await Users.findOneAndUpdate({_id:req.user.id}, {cartData:userData.cartData});
-    res.send("Added")
+    res.send("Añadido")
   })
 
   //Create an endpoint for saving the product in cart
@@ -205,7 +314,7 @@ app.post('/removefromcart', fetchuser, async (req, res) => {
       userData.cartData[req.body.itemId] -= 1;
     }
     await Users.findOneAndUpdate({_id:req.user.id}, {cartData:userData.cartData});
-    res.send("Removed");
+    res.send("Removido");
   })
 
   //Create an endpoint for saving the product in cart
@@ -237,17 +346,17 @@ app.post("/addproduct", async (req, res) => {
   });
   console.log(product);
   await product.save();
-  console.log("Saved");
+  console.log("Guardado");
   res.json({success:true,name:req.body.name})
 });
 
 app.post("/removeproduct", async (req, res) => {
   const product = await Product.findOneAndDelete({ id: req.body.id });
-  console.log("Removed");
+  console.log("Removido");
   res.json({success:true,name:req.body.name})
 });
 
 app.listen(port, (error) => {
-  if (!error) console.log("Server Running on port " + port);
+  if (!error) console.log("Servidor corriendo en el puerto " + port);
   else console.log("Error : ", error);
 });
