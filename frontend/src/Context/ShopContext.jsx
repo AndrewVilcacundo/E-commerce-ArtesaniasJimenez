@@ -60,23 +60,27 @@ const ShopContextProvider = (props) => {
   };
 
   const addToCart = (itemId) => {
-    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
-    if(localStorage.getItem("auth-token"))
-    {
-      fetch('http://localhost:4000/addtocart', {
-      method: 'POST',
-      headers: {
-        Accept:'application/form-data',
-        'auth-token':`${localStorage.getItem("auth-token")}`,
-        'Content-Type':'application/json',
-      },
-      body: JSON.stringify({"itemId":itemId}),
-    })
-      .then((resp) => resp.json())
-      .then((data) => {console.log(data)});
+    const product = products.find((product) => product.id === itemId);
+    if (product && cartItems[itemId] < product.stock) {
+      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+
+      if (localStorage.getItem("auth-token")) {
+        fetch('http://localhost:4000/addtocart', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/form-data',
+            'auth-token': `${localStorage.getItem("auth-token")}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ "itemId": itemId }),
+        })
+        .then((resp) => resp.json())
+        .then((data) => { console.log(data) });
+      }
+    } else {
+      alert("No hay suficiente stock disponible.");
     }
   };
-
   const removeFromCart = (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
     if(localStorage.getItem("auth-token"))
