@@ -45,11 +45,12 @@ let transporter = nodemailer.createTransport({
 
 
 
-
+//2GHjis1G1rc1EMpl
 
 // Database Connection With MongoDB
 
-mongoose.connect("mongodb+srv://sandovalbrandon1027:PvQEAZBx8F2aJyLU@cluster0.ixeawgw.mongodb.net/e-comerce");
+mongoose.connect("mongodb+srv://sandovalbrandon1027:2GHjis1G1rc1EMpl@cluster0.8yp9gqt.mongodb.net/probando")
+//mongoose.connect("mongodb+srv://sandovalbrandon1027:PvQEAZBx8F2aJyLU@cluster0.ixeawgw.mongodb.net/e-comerce");
 //mongoose.connect("mongodb+srv://andrewmateo1503:kZujIsqjNPeRFbBX@cluster1.u8fdtxz.mongodb.net/tesis2");
 // paste your mongoDB Connection string above with password
 // password should not contain '@' special character
@@ -144,6 +145,10 @@ const Product = mongoose.model("Product", {
     type: Boolean,
     default: true,
   },
+  stock:{
+    type: Number,
+    default: true
+  }
 });
 
 app.get("/", (req, res) => {
@@ -300,24 +305,58 @@ app.get("/popularinpajatoquilla", async (req, res) => {
 
 //Create an endpoint for saving the product in cart
 app.post('/addtocart', fetchuser, async (req, res) => {
-	console.log("Add Cart");
-    let userData = await Users.findOne({_id:req.user.id});
-    userData.cartData[req.body.itemId] += 1;
-    await Users.findOneAndUpdate({_id:req.user.id}, {cartData:userData.cartData});
-    res.send("Añadido")
-  })
+  console.log("Add Cart");
+  try {
+    const user = await Users.findById(req.user.id);
+    const product = await Product.findById(req.body.productId);
+
+    if (!product || product.stock < req.body.quantity) {
+      return res.status(400).json({ success: false, message: "Stock insuficiente" });
+    }
+
+    user.cartData[req.body.productId] = (user.cartData[req.body.productId] || 0) + req.body.quantity;
+    product.stock -= req.body.quantity;
+
+    await user.save();
+    await product.save();
+
+    res.json({ success: true, message: "Producto añadido al carrito" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error interno del sistema");
+  }
+});
+
+
 
   //Create an endpoint for saving the product in cart
-app.post('/removefromcart', fetchuser, async (req, res) => {
-	console.log("Remove Cart");
-    let userData = await Users.findOne({_id:req.user.id});
-    if(userData.cartData[req.body.itemId]!=0)
-    {
-      userData.cartData[req.body.itemId] -= 1;
+  app.post('/removefromcart', fetchuser, async (req, res) => {
+    console.log("Remove Cart");
+    try {
+      const user = await Users.findById(req.user.id);
+      const product = await Product.findById(req.body.productId);
+  
+      if (!product || user.cartData[req.body.productId] < req.body.quantity) {
+        return res.status(400).json({ success: false, message: "Cantidad en el carrito insuficiente" });
+      }
+  
+      user.cartData[req.body.productId] -= req.body.quantity;
+      product.stock += req.body.quantity;
+  
+      if (user.cartData[req.body.productId] <= 0) {
+        delete user.cartData[req.body.productId];
+      }
+  
+      await user.save();
+      await product.save();
+  
+      res.json({ success: true, message: "Producto removido del carrito" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Error interno del sistema");
     }
-    await Users.findOneAndUpdate({_id:req.user.id}, {cartData:userData.cartData});
-    res.send("Removido");
-  })
+  });
+  
 
   //Create an endpoint for saving the product in cart
 app.post('/getcart', fetchuser, async (req, res) => {
@@ -343,8 +382,9 @@ app.post("/addproduct", async (req, res) => {
     name: req.body.name,
     image: req.body.image,
     category: req.body.category,
-    new_price: req.body.new_price,
-    old_price: req.body.old_price,
+    new_price: parseFloat(req.body.new_price),
+    old_price: parseFloat(req.body.old_price),
+    stock: parseInt(req.body.stock,10)
   });
   console.log(product);
   await product.save();
