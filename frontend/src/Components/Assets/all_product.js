@@ -155,7 +155,7 @@ let allproducts = [
     name: "Canasto tejido en pajatoquilla",
     category: "pajatoquilla",
     image: p17_img,
-    new_price: 1.50
+    new_price: 12
   },
   {
     id: 18,
