@@ -20,6 +20,7 @@
     "ejs": "^3.1.9",
     "express": "^4.19.2",
     "express-validator": "^7.1.0",
+    "fs-extra": "^11.2.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.6.2",
     "mongoose": "^7.5.0",

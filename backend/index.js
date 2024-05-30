@@ -7,6 +7,8 @@ import cors from 'cors';
 import bcrypt from 'bcrypt'; 
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
+import cloudinary from 'cloudinary';
+import fs from 'fs-extra';
 
 const port = 4000;
 const app = express();
@@ -55,22 +57,97 @@ mongoose.connect("mongodb+srv://sandovalbrandon1027:2GHjis1G1rc1EMpl@cluster0.8y
 // paste your mongoDB Connection string above with password
 // password should not contain '@' special character
 
-//Image Storage Engine 
+// //Image Storage Engine 
+// const storage = multer.diskStorage({
+  //     destination: './upload/images',
+  //     filename: (req, file, cb) => {
+    //       console.log(file);
+    //         return cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
+    //     }
+// })
+// const upload = multer({storage: storage})
+// app.post("/upload", upload.single('product'), (req, res) => {
+//     res.json({
+//         success: 1,
+//         image_url: `http://localhost:4000/images/${req.file.filename}`
+//     })
+// })
+// app.use('/images', express.static('upload/images'));
+
+
+//Establecer las variables de entorno
+cloudinary.config({ 
+  cloud_name: process.env.CLOUD_NAME, 
+  api_key: process.env.API_KEY, 
+  api_secret: process.env.API_SECRET,
+  secure: true
+});
+
+
+// Middleware para el almacenamiento de imágenes en Cloudinary
 const storage = multer.diskStorage({
-    destination: './upload/images',
-    filename: (req, file, cb) => {
-      console.log(file);
-        return cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
-    }
-})
-const upload = multer({storage: storage})
-app.post("/upload", upload.single('product'), (req, res) => {
+  filename: (req, file, cb) => {
+    cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`);
+  }
+});
+
+// Middleware de multer para cargar archivos
+const upload = multer({ storage: storage });
+
+// Ruta para subir imágenes
+app.post("/upload", upload.single('product'), async (req, res) => {
+  try {
+    // Subir la imagen a Cloudinary
+    const resultado = await cloudinary.uploader.upload(req.file.path, { 
+      folder: 'tienda' // Crear la carpeta "tienda" en Cloudinary
+    });
+
+    // Eliminar la imagen local después de subirla a Cloudinary
+    await fs.unlink(req.file.path);
+
+    // Enviar la URL de la imagen subida
     res.json({
-        success: 1,
-        image_url: `http://localhost:4000/images/${req.file.filename}`
-    })
-})
-app.use('/images', express.static('upload/images'));
+      success: 1,
+      image_url: resultado.secure_url
+    });
+  } catch (error) {
+    console.error('Error al subir la imagen a Cloudinary:', error);
+    res.status(500).json({ success: 0, error: 'Error al subir la imagen a Cloudinary' });
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // MiddleWare to fetch user from database
 const fetchuser = async (req, res, next) => {
