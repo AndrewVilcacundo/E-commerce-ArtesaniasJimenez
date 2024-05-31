@@ -10,12 +10,12 @@ import dotenv from 'dotenv';
 import cloudinary from 'cloudinary';
 import fs from 'fs-extra';
 
+dotenv.config();
 const port = 4000;
 const app = express();
 
 
 
-dotenv.config();
 app.use(express.json());
 app.use(cors());
 
@@ -120,35 +120,6 @@ app.post("/upload", upload.single('product'), async (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // MiddleWare to fetch user from database
 const fetchuser = async (req, res, next) => {
   const token = req.header("auth-token");
@@ -163,6 +134,30 @@ const fetchuser = async (req, res, next) => {
     res.status(401).send({ errors: "Por favor, autentíquese con un token válido." });
   }
 };
+
+// // Database Connection With MongoDB
+// mongoose.connect(process.env.MONGO_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+//   useCreateIndex: true,
+// })
+// .then(() => console.log("Conectado a MongoDB"))
+// .catch((error) => console.error("Error al conectar a MongoDB:", error));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Schema for creating user model
@@ -231,6 +226,19 @@ const Product = mongoose.model("Product", {
 app.get("/", (req, res) => {
   res.send("Root");
 });
+
+// Ruta para obtener todos los productos
+app.get("/api/products", async (req, res) => {
+  try {
+    const products = await Product.find({});
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: 'Error al obtener productos' });
+  }
+});
+
+
+
 
 //Create an endpoint at ip/login for login the user and giving auth-token
 app.post('/login', async (req, res) => {
@@ -374,10 +382,15 @@ app.get("/newcollections", async (req, res) => {
 });
 
 app.get("/popularinpajatoquilla", async (req, res) => {
-	let products = await Product.find({});
-  let arr = products.splice(0,  4);
-  console.log("Lo más popular en la tienda");
-  res.send(arr);
+  try {
+    let products = await Product.find({});
+    let arr = products.splice(0, 4);
+    console.log("Lo más popular en la tienda");
+    res.send(arr);
+  } catch (error) {
+    console.error('Error al obtener productos:', error);
+    res.status(500).json({ message: 'Error al obtener productos' });
+  }
 });
 
 //Create an endpoint for saving the product in cart
@@ -474,6 +487,20 @@ app.post("/removeproduct", async (req, res) => {
   console.log("Removido");
   res.json({success:true,name:req.body.name})
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.listen(port, (error) => {
   if (!error) console.log("Servidor corriendo en el puerto " + port);
