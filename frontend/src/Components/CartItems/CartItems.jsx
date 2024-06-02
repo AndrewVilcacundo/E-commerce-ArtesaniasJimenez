@@ -1,11 +1,13 @@
+// src/Components/CartItems/CartItems.jsx
 import React, { useContext } from "react";
 import "./CartItems.css";
 import cross_icon from "../Assets/cart_cross_icon.png";
 import { ShopContext } from "../../Context/ShopContext";
+import InvoiceGenerator from '../InvoiceGenerator'; // Ruta corregida
 
 const CartItems = () => {
-  const {products} = useContext(ShopContext);
-  const {cartItems,removeFromCart,getTotalCartAmount} = useContext(ShopContext);
+  const { products, cartItems, removeFromCart, getTotalCartAmount } = useContext(ShopContext);
+  const totalAmount = getTotalCartAmount();
 
   return (
     <div className="cartitems">
@@ -18,21 +20,21 @@ const CartItems = () => {
         <p>Remover</p>
       </div>
       <hr />
-      {products.map((e)=>{
-
-        if(cartItems[e.id]>0)
-        {
-          return  <div>
-                    <div className="cartitems-format-main cartitems-format">
-                      <img className="cartitems-product-icon" src={e.image} alt="" />
-                      <p cartitems-product-title>{e.name}</p>
-                      <p>${e.new_price}</p>
-                      <button className="cartitems-quantity">{cartItems[e.id]}</button>
-                      <p>${e.new_price*cartItems[e.id]}</p>
-                      <img onClick={()=>{removeFromCart(e.id)}} className="cartitems-remove-icon" src={cross_icon} alt="" />
-                    </div>
-                     <hr />
-                  </div>;
+      {products.map((e) => {
+        if (cartItems[e.id] > 0) {
+          return (
+            <div key={e.id}>
+              <div className="cartitems-format-main cartitems-format">
+                <img className="cartitems-product-icon" src={e.image} alt="" />
+                <p className="cartitems-product-title">{e.name}</p>
+                <p>${e.new_price}</p>
+                <button className="cartitems-quantity">{cartItems[e.id]}</button>
+                <p>${e.new_price * cartItems[e.id]}</p>
+                <img onClick={() => removeFromCart(e.id)} className="cartitems-remove-icon" src={cross_icon} alt="" />
+              </div>
+              <hr />
+            </div>
+          );
         }
         return null;
       })}
@@ -43,26 +45,19 @@ const CartItems = () => {
           <div>
             <div className="cartitems-total-item">
               <p>Subtotal</p>
-              <p>${getTotalCartAmount()}</p>
+              <p>${totalAmount}</p>
             </div>
             <hr />
-            <div className="cartitems-total-item">
-              <p>Shipping Fee</p>
-              <p>Free</p>
-            </div>
             <hr />
             <div className="cartitems-total-item">
               <h3>Total</h3>
-              <h3>${getTotalCartAmount()}</h3>
+              <h3>${totalAmount}</h3>
             </div>
           </div>
-          <button>PROCEDER A PAGAR</button>
+          <InvoiceGenerator cartItems={cartItems} products={products} totalAmount={totalAmount} />
         </div>
-        
-           
-          </div>
-        </div>
-  
+      </div>
+    </div>
   );
 };
 

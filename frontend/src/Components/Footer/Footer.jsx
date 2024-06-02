@@ -14,10 +14,7 @@ const Footer = () => {
         <p>ARTESANIAS JIMENEZ</p>
       </div>
       <ul className="footer-links">
-        <li>Compañía</li>
-        <li>Productos</li>
-        <li>Acerca</li>
-        <li>Contacto</li>
+        <li>Lo mejor en productos de paja toquilla y totora.</li>
       </ul>
       <div className="footer-social-icons">
         <div className="footer-icons-container">
@@ -36,10 +33,7 @@ const Footer = () => {
           </a>
         </div>
       </div>
-      <div className="footer-copyright">
-        <hr />
-        <p>Copyright @ 2024 - Todos los derechos reservados.</p>
-      </div>
+      
     </div>
   )
 }
