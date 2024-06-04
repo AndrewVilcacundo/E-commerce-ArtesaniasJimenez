@@ -34,28 +34,34 @@ const LoginSignup = () => {
   }
 
   const signup = async () => {
-    let dataObj;
-    await fetch('http://localhost:4000/signup', {
-      method: 'POST',
-      headers: {
-        Accept:'application/form-data',
-        'Content-Type':'application/json',
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((resp) => resp.json())
-      .then((data) => {dataObj=data});
-
-      if (dataObj.success) {
-        localStorage.setItem('auth-token',dataObj.token);
+    try {
+      const response = await fetch('http://localhost:4000/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Error al registrar usuario');
+      }
+  
+      const data = await response.json();
+  
+      if (data.success) {
+        localStorage.setItem('auth-token', data.token);
+        alert('Usuario registrado. Se ha enviado un correo de verificación.');
         window.location.replace("/login");
+      } else {
+        alert(data.errors);
       }
-      else
-      {
-        alert(dataObj.errors)
-      }
-  }
-
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Ha ocurrido un error. Por favor, inténtalo de nuevo más tarde.');
+    }
+  };
+  
   return (
     <div className="loginsignup">
       <div className="loginsignup-container">

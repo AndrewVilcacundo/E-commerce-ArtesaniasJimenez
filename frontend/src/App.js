@@ -8,6 +8,7 @@ import ShopCategory from "./Pages/ShopCategory";
 import toquilla_banner from "./Components/Assets/toquilla.png";
 import totora_banner from "./Components/Assets/totora.png";
 import LoginSignup from "./Pages/LoginSignup";
+import React from "react";
 
 
 function App() {
