@@ -6,7 +6,10 @@ const DescriptionBox = () => {
     <div className="descriptionbox">
       <div className="descriptionbox-navigator">
         <div className="descriptionbox-nav-box">Descripción</div>
+<<<<<<< HEAD
         
+=======
+>>>>>>> 914036b0c672f57060e119e685eaca4171a36557
       </div>
       <div className="descriptionbox-description">
         <p>

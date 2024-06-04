@@ -40,7 +40,6 @@ const InvoiceGenerator = ({ cartItems, products, totalAmount }) => {
     y += 10;
     doc.setFontSize(12);
     doc.text("Productos", 10, y);
-    doc.text("Titulo", 50, y);
     doc.text("Precio", 90, y);
     doc.text("Cantidad", 110, y);
     doc.text("Total", 150, y);
@@ -48,10 +47,9 @@ const InvoiceGenerator = ({ cartItems, products, totalAmount }) => {
 
     products.forEach((product) => {
       if (cartItems[product.id] > 0) {
-        doc.text(product.name, 10, y);
-        doc.text(product.title, 50, y);
+        doc.text(String(product.name), 10, y);
         doc.text(`$${product.new_price.toFixed(2)}`, 90, y);
-        doc.text(`${cartItems[product.id]}`, 110, y);
+        doc.text(String(cartItems[product.id]), 110, y);
         doc.text(`$${(product.new_price * cartItems[product.id]).toFixed(2)}`, 150, y);
         y += 10;
       }
