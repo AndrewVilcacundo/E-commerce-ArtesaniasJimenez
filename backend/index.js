@@ -160,7 +160,7 @@ const fetchuser = async (req, res, next) => {
 
 
 
-// Schema for creating user model
+// Esquema para crear el modelo Usuarios
 const Users = mongoose.model("Users", {
   name: {
     type: String,
@@ -185,7 +185,7 @@ const Users = mongoose.model("Users", {
   }
 });
 
-// Schema for creating Product
+// Esquema para crear productos
 const Product = mongoose.model("Product", {
   id: {
     type: Number,
@@ -243,30 +243,36 @@ app.get("/api/products", async (req, res) => {
 //Create an endpoint at ip/login for login the user and giving auth-token
 app.post('/login', async (req, res) => {
   console.log("Login");
-    let success = false;
-    let user = await Users.findOne({ email: req.body.email });
-    if (user) {
-      //comparando la contraseña con la ingrese primeramente
-        const passCompare = await bcrypt.compare(req.body.password, user.password)
-        if (passCompare) {
-            const data = {
-                user: {
-                    id: user.id
-                }
-            }
-			success = true;
+  let success = false;
+  let user = await Users.findOne({ email: req.body.email });
+  
+  if (user) {
+    // Verificar si el usuario ha verificado su correo
+    if (!user.isVerified) {
+      return res.status(400).json({ success: success, errors: "Por favor, verifica tu correo electrónico antes de iniciar sesión." });
+    }
+    
+    // Comparando la contraseña con la ingresada
+    const passCompare = await bcrypt.compare(req.body.password, user.password);
+    if (passCompare) {
+      const data = {
+        user: {
+          id: user.id
+        }
+      };
+      success = true;
       console.log(user.id);
-			const token = jwt.sign(data, 'secret_ecom');
-			res.json({ success, token });
-        }
-        else {
-            return res.status(400).json({success: success, errors: "por favor ingrese de nuevo su email o password"})
-        }
+      const token = jwt.sign(data, 'secret_ecom');
+      res.json({ success, token });
+    } else {
+      return res.status(400).json({ success: success, errors: "Por favor, ingrese de nuevo su email o password." });
     }
-    else {
-        return res.status(400).json({success: success, errors: "por favor ingrese de nuevo su email o password"})
-    }
-})
+  } else {
+    return res.status(400).json({ success: success, errors: "Por favor, ingrese de nuevo su email o password." });
+  }
+});
+
+
 
 
 
@@ -279,7 +285,7 @@ app.post('/signup', async (req, res) => {
   try {
     let check = await Users.findOne({ email: req.body.email });
     if (check) {
-      return res.status(400).json({ success: success, errors: "Usuario existente encontrada con este correo electrónico" });
+      return res.status(400).json({ success: success, errors: "Usuario existente encontrado con este correo electrónico." });
     }
 
     let cart = {};
@@ -314,14 +320,14 @@ app.post('/signup', async (req, res) => {
     });
 
     success = true;
-    res.json({ success, message: "Usuario registrado. Por favor, verifica tu correo electrónico." });
+    // Cambiar la respuesta aquí para informar sobre el correo de verificación
+    res.status(200).json({ success: success, message: "Usuario registrado. Se ha enviado un correo de verificación." });
   } catch (error) {
     console.error(error);
     res.status(500).send("Error interno del sistema");
   }
- 
-
 });
+
 
 
 
