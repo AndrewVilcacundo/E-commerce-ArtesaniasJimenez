@@ -7,7 +7,7 @@
     justify-content: space-between;
     padding: 0px 8%;
     margin-bottom: 150px;
-    background: linear-gradient(180deg, #A75430 0%,#e1ffea22 60%);;
+    background: linear-gradient(180deg, 0%,#e1ffea22 60%);;
 }
 
 .offers-left h1{
@@ -32,11 +32,10 @@
     margin-top: 30px;
     cursor: pointer;
 }
-.offers-right img{
-    width: 500px;
-    height: 320px;
-    padding-top: 100px;
-}
+.map-frame {
+    margin-bottom: 20px; /* Ajusta el valor según tus necesidades */
+  }
+  
 
 /* ----- media query----- */
 
