@@ -7,7 +7,7 @@ const ProductDisplay = (props) => {
   const { addToCart } = useContext(ShopContext);
 
   // Verifica si product está definido y tiene las propiedades necesarias
-  if (!product || !product.image || !product.name || !product.old_price || !product.new_price) {
+  if (!product || !product.image || !product.name || !product.old_price || !product.new_price ) {
     return <div>Loading...</div>; // O algún otro componente de respaldo
   }
 
