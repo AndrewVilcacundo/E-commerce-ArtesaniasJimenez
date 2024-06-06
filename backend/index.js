@@ -360,7 +360,36 @@ app.get('/verify/:token', async (req, res) => {
 
 
 
+// Endpoint para iniciar el proceso de restablecimiento de contraseña
+app.post('/request-reset-password', async (req, res) => {
+  const { email } = req.body;
+  const user = await Users.findOne({ email });
+  if (!user) {
+    return res.status(400).json({ success: false, errors: "El correo no está registrado" });
+  }
 
+  // Aquí normalmente enviarías un correo con un enlace para restablecer la contraseña,
+  // pero como quieres evitar la complejidad, omitimos esta parte.
+  
+  res.json({ success: true, message: "Correo de recuperación enviado (no realmente)" });
+});
+
+// Endpoint para restablecer la contraseña
+app.post('/reset-password', async (req, res) => {
+  const { email, password } = req.body;
+  const user = await Users.findOne({ email });
+  if (!user) {
+    return res.status(400).json({ success: false, errors: "El correo no está registrado" });
+  }
+
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  user.password = hashedPassword;
+  await user.save();
+
+  res.json({ success: true, message: "Contraseña restablecida con éxito" });
+});
 
 
 
