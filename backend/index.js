@@ -217,9 +217,13 @@ const Product = mongoose.model("Product", {
     type: Boolean,
     default: true,
   },
-  stock:{
+  stock: {
     type: Number,
-    default: true
+    default: 0
+  },
+  description: {
+    type: String,
+    required: true
   }
 });
 
@@ -509,7 +513,8 @@ app.post("/addproduct", async (req, res) => {
     category: req.body.category,
     new_price: parseFloat(req.body.new_price),
     old_price: parseFloat(req.body.old_price),
-    stock: parseInt(req.body.stock,10)
+    stock: parseInt(req.body.stock,10),
+    description: req.body.description
   });
   console.log(product);
   await product.save();
