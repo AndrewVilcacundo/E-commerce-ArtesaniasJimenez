@@ -7,7 +7,7 @@ const ProductDisplay = (props) => {
   const { addToCart } = useContext(ShopContext);
 
   // Verifica si product está definido y tiene las propiedades necesarias
-  if (!product || !product.image || !product.name || !product.old_price || !product.new_price ) {
+  if (!product || !product.image || !product.name || !product.old_price || !product.new_price || !product.description) {
     return <div>Loading...</div>; // O algún otro componente de respaldo
   }
 
@@ -31,18 +31,12 @@ const ProductDisplay = (props) => {
           <div className="productdisplay-right-price-old">${product.old_price}</div>
           <div className="productdisplay-right-price-new">${product.new_price}</div>
         </div>
-        <div className="productdisplay-right-description">
-          Esta es una breve Descripción del producto
-          Esta es una breve Descripción del producto
-          Esta es una breve Descripción del producto
-          Esta es una breve Descripción del productoEsta es una breve Descripción del productoEsta es una breve Descripción del productbreve Descripción del produ
+        <div className="productdisplay-right-description" dangerouslySetInnerHTML={{ __html: product.description }}>
         </div>
         <br />
-
-        
         <button onClick={() => { addToCart(product.id) }}>AÑADIR AL CARRITO</button>
-        <p className="productdisplay-right-category"><span>Category :</span> Paja Toquilla, Individuales, etc</p>
-        <p className="productdisplay-right-category"><span>Tags :</span> Moderno, Resistente</p>
+        <p className="productdisplay-right-category"><span>Categoría :</span> {product.category}</p>
+        <p className="productdisplay-right-category"><span>Etiquetas :</span> Moderno, Resistente</p>
       </div>
     </div>
   );
