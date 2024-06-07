@@ -10,7 +10,8 @@ const AddProduct = () => {
     category: "pajatoquilla",
     new_price: "",
     old_price: "",
-    stock: "" // Añadir el campo de stock
+    stock: "", // Añadir el campo de stock
+    description: "" // Añadir el campo de descripción
   });
 
   const AddProduct = async () => {
@@ -59,24 +60,28 @@ const AddProduct = () => {
     <div className="addproduct">
       <div className="addproduct-itemfield">
         <p>Título del producto</p>
-        <input type="text" name="name" value={productDetails.name} onChange={(e) => { changeHandler(e) }} placeholder="Escribe aqui" />
+        <input type="text" name="name" value={productDetails.name} onChange={(e) => { changeHandler(e) }} placeholder="Escribe aquí" />
       </div>
       <div className="addproduct-price">
         <div className="addproduct-itemfield">
           <p>Precio</p>
-          <input type="text" name="old_price" value={productDetails.old_price} onChange={(e) => { changeHandler(e) }} placeholder="Escribe aqui" />
+          <input type="text" name="old_price" value={productDetails.old_price} onChange={(e) => { changeHandler(e) }} placeholder="Escribe aquí" />
         </div>
         <div className="addproduct-itemfield">
           <p>Precio de oferta</p>
-          <input type="text" name="new_price" value={productDetails.new_price} onChange={(e) => { changeHandler(e) }} placeholder="Escribe aqui" />
+          <input type="text" name="new_price" value={productDetails.new_price} onChange={(e) => { changeHandler(e) }} placeholder="Escribe aquí" />
         </div>
       </div>
       <div className="addproduct-itemfield">
         <p>Stock del producto</p>
-        <input type="text" name="stock" value={productDetails.stock} onChange={(e) => { changeHandler(e) }} placeholder="Escribe aqui" />
+        <input type="text" name="stock" value={productDetails.stock} onChange={(e) => { changeHandler(e) }} placeholder="Escribe aquí" />
       </div>
       <div className="addproduct-itemfield">
-        <p>Categoria del producto</p>
+        <p>Descripción del producto</p>
+        <textarea name="description" value={productDetails.description} onChange={(e) => { changeHandler(e) }} placeholder="Escribe aquí"></textarea>
+      </div>
+      <div className="addproduct-itemfield">
+        <p>Categoría del producto</p>
         <select value={productDetails.category} name="category" className="add-product-selector" onChange={changeHandler}>
           <option value="pajatoquilla">Paja toquilla</option>
           <option value="totora">Totora</option>
