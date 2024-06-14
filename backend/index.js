@@ -190,6 +190,7 @@ const Product = mongoose.model("Product", {
   id: {
     type: Number,
     required: true,
+    unique: true,
   },
   name: {
     type: String,
@@ -397,10 +398,39 @@ app.post('/reset-password', async (req, res) => {
 
 
 
+app.get('/product/:name', async (req, res) => {
+  try {
+    const product = await Product.findOne({ name: req.params.name });
+    if (product) {
+      res.json({ success: true, product });
+    } else {
+      res.json({ success: false, message: 'Producto no encontrado' });
+    }
+  } catch (error) {
+    console.error('Error fetching product:', error);
+    res.status(500).json({ success: false, message: 'Error al buscar el producto' });
+  }
+});
 
+app.put('/updateproduct', async (req, res) => {
+  try {
+    const { id, ...productDetails } = req.body;
+    console.log("ID recibido:", id);
+    console.log("Detalles del producto recibidos:", productDetails);
 
+    const updatedProduct = await Product.findOneAndUpdate({ id }, productDetails, { new: true });
 
-
+    if (updatedProduct) {
+      console.log("Producto actualizado:", updatedProduct);
+      res.json({ success: true, product: updatedProduct });
+    } else {
+      res.status(404).json({ success: false, message: 'Producto no encontrado' });
+    }
+  } catch (error) {
+    console.error('Error updating product:', error);
+    res.status(500).json({ success: false, message: 'Error al actualizar el producto' });
+  }
+});
 
 
 
