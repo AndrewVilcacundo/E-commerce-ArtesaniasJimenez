@@ -10,7 +10,37 @@ const LoginSignup = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
+  const validateFields = () => {
+    if (state === "Login") {
+      if (!formData.email || !formData.password) {
+        alert("Por favor, complete todos los campos.");
+        return false;
+      }
+    } else if (state === "Sign Up") {
+      if (!formData.username || !formData.email || !formData.password || !formData.confirmPassword) {
+        alert("Por favor, complete todos los campos.");
+        return false;
+      }
+      if (formData.password !== formData.confirmPassword) {
+        alert("Las contraseñas no coinciden");
+        return false;
+      }
+    } else if (state === "Recover Password") {
+      if (!formData.email || !formData.password || !formData.confirmPassword) {
+        alert("Por favor, complete todos los campos.");
+        return false;
+      }
+      if (formData.password !== formData.confirmPassword) {
+        alert("Las contraseñas no coinciden");
+        return false;
+      }
+    }
+    return true;
+  }
+
   const login = async () => {
+    if (!validateFields()) return;
+
     let dataObj;
     await fetch('http://localhost:4000/login', {
       method: 'POST',
@@ -32,10 +62,7 @@ const LoginSignup = () => {
   }
 
   const signup = async () => {
-    if (formData.password !== formData.confirmPassword) {
-      alert("Las contraseñas no coinciden");
-      return;
-    }
+    if (!validateFields()) return;
 
     try {
       const response = await fetch('http://localhost:4000/signup', {
@@ -66,10 +93,7 @@ const LoginSignup = () => {
   };
 
   const recoverPassword = async () => {
-    if (formData.password !== formData.confirmPassword) {
-      alert("Las contraseñas no coinciden");
-      return;
-    }
+    if (!validateFields()) return;
 
     try {
       const response = await fetch('http://localhost:4000/reset-password', {
