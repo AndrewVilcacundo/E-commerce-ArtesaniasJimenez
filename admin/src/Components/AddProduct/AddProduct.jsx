@@ -10,11 +10,24 @@ const AddProduct = () => {
     category: "pajatoquilla",
     new_price: "",
     old_price: "",
-    stock: "", // Añadir el campo de stock
-    description: "" // Añadir el campo de descripción
+    stock: "",
+    description: ""
   });
 
+  const validateProductDetails = () => {
+    const { name, new_price, old_price, stock, description } = productDetails;
+    if (!name || !new_price || !old_price || !stock || !description || !image) {
+      return false;
+    }
+    return true;
+  };
+
   const AddProduct = async () => {
+    if (!validateProductDetails()) {
+      alert("Por favor, completa todos los campos antes de añadir el producto.");
+      return;
+    }
+
     let dataObj;
     let product = productDetails;
 
@@ -43,7 +56,7 @@ const AddProduct = () => {
         body: JSON.stringify(product),
       })
       .then((resp) => resp.json())
-      .then((data) => { data.success ? alert("Product Added") : alert("Failed") });
+      .then((data) => { data.success ? alert("Producto añadido") : alert("Error al añadir el producto") });
     }
   };
 
