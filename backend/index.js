@@ -205,7 +205,8 @@ const Product = mongoose.model("Product", {
     required: true,
   },
   new_price: {
-    type: Number
+    type: Number,
+    default: null
   },
   old_price: {
     type: Number
@@ -245,7 +246,7 @@ app.get("/api/products", async (req, res) => {
 
 
 
-//Create an endpoint at ip/login for login the user and giving auth-token
+//Endpoint para inicar sesion y generar el token del usuario 
 app.post('/login', async (req, res) => {
   console.log("Login");
   let success = false;
@@ -282,7 +283,7 @@ app.post('/login', async (req, res) => {
 
 
 
-//Create an endpoint at ip/auth for regestring the user in data base & sending token
+//Creando endpoint para el resgitro de nuevos usuarios
 app.post('/signup', async (req, res) => {
   console.log("Sign Up");
   let success = false;
@@ -373,8 +374,6 @@ app.post('/request-reset-password', async (req, res) => {
     return res.status(400).json({ success: false, errors: "El correo no está registrado" });
   }
 
-  // Aquí normalmente enviarías un correo con un enlace para restablecer la contraseña,
-  // pero como quieres evitar la complejidad, omitimos esta parte.
   
   res.json({ success: true, message: "Correo de recuperación enviado (no realmente)" });
 });
@@ -462,7 +461,7 @@ app.get("/popularinpajatoquilla", async (req, res) => {
   }
 });
 
-//Create an endpoint for saving the product in cart
+//Creando un endpoint para que el producto elejido se agrege al carrito de compras 
 app.post('/addtocart', fetchuser, async (req, res) => {
   console.log("Add Cart");
   try {
@@ -488,7 +487,7 @@ app.post('/addtocart', fetchuser, async (req, res) => {
 
 
 
-  //Create an endpoint for saving the product in cart
+  //Creando endpoint para remover un producto de nuestro carrido de compras
   app.post('/removefromcart', fetchuser, async (req, res) => {
     console.log("Remove Cart");
     try {
@@ -517,7 +516,7 @@ app.post('/addtocart', fetchuser, async (req, res) => {
   });
   
 
-  //Create an endpoint for saving the product in cart
+  //Creando un endpoint para mostrar los productos agregados
 app.post('/getcart', fetchuser, async (req, res) => {
   console.log("Get Cart");
   let userData = await Users.findOne({_id:req.user.id});
@@ -526,6 +525,8 @@ app.post('/getcart', fetchuser, async (req, res) => {
   })
 
 
+
+  //Endpoint para agregar nuevos productos
 app.post("/addproduct", async (req, res) => {
   let products = await Product.find({});
   let id;
