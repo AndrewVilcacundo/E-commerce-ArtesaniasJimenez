@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./buscar.css";
 import upload_area from "../Assets/upload_area.svg";
 
@@ -15,7 +14,7 @@ const Update = () => {
         stock: "",
         description: "",
     });
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
 
     const updateProduct = async () => {
         let product = { ...productDetails };
