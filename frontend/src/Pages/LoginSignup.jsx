@@ -63,8 +63,9 @@ const LoginSignup = () => {
 
   const signup = async () => {
     if (!validateFields()) return;
-
+  
     try {
+      console.log("Formulario enviado:", formData);
       const response = await fetch('http://localhost:4000/signup', {
         method: 'POST',
         headers: {
@@ -72,13 +73,13 @@ const LoginSignup = () => {
         },
         body: JSON.stringify(formData),
       });
-
+  
       if (!response.ok) {
         throw new Error('Error al registrar usuario');
       }
-
+  
       const data = await response.json();
-
+  
       if (data.success) {
         localStorage.setItem('auth-token', data.token);
         alert('Usuario registrado. Se ha enviado un correo de verificación.');
@@ -91,6 +92,7 @@ const LoginSignup = () => {
       alert('Ha ocurrido un error. Por favor, inténtalo de nuevo más tarde.');
     }
   };
+  
 
   const recoverPassword = async () => {
     if (!validateFields()) return;
