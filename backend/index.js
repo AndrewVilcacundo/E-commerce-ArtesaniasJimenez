@@ -59,6 +59,9 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log("Conectado a MongoDB"))
 .catch((error) => console.error("Error al conectar a MongoDB:", error));
 //mongoose.connect("mongodb+srv://sandovalbrandon1027:2GHjis1G1rc1EMpl@cluster0.8yp9gqt.mongodb.net/probando")
+
+//mongoose.connect("mongodb+srv://andrew:xZs2ljanOXINZLKF@cluster0.8yp9gqt.mongodb.net/probando")
+
 //mongoose.connect("mongodb+srv://sandovalbrandon1027:PvQEAZBx8F2aJyLU@cluster0.ixeawgw.mongodb.net/e-comerce");
 //mongoose.connect("mongodb+srv://andrewmateo1503:kZujIsqjNPeRFbBX@cluster1.u8fdtxz.mongodb.net/tesis2");
 // paste your mongoDB Connection string above with password
