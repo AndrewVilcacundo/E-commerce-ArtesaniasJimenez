@@ -5,15 +5,9 @@ const DescriptionBox = () => {
   return (
     <div className="descriptionbox">
       <div className="descriptionbox-navigator">
-        <div className="descriptionbox-nav-box">Descripción</div>
+        <div className="descriptionbox-nav-box"></div>
       </div>
       <div className="descriptionbox-description">
-        <p>
-          es un e-commerce de artesanias jimenez 
-        </p>
-        <p>
-          E-commerce de dasddQKWJDQJD FDDJKdhkjdskdsdkja
-        </p>
       </div>
     </div>
   );

@@ -1,13 +1,24 @@
-// src/Components/CartItems/CartItems.jsx
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./CartItems.css";
 import cross_icon from "../Assets/cart_cross_icon.png";
 import { ShopContext } from "../../Context/ShopContext";
-import InvoiceGenerator from '../InvoiceGenerator'; // Ruta corregida
+import InvoiceGenerator from '../InvoiceGenerator';
 
 const CartItems = () => {
   const { products, cartItems, removeFromCart, getTotalCartAmount } = useContext(ShopContext);
   const totalAmount = getTotalCartAmount();
+
+  const [deliveryOption, setDeliveryOption] = useState("recoger"); // Inicia con "recoger" seleccionado por defecto
+  const [address, setAddress] = useState("Recoger en tienda");
+
+  const handleDeliveryOption = (option) => {
+    setDeliveryOption(option);
+    if (option === "recoger") {
+      setAddress("Recoger en tienda");
+    } else {
+      setAddress(""); // Limpia la dirección si se elige otra opción
+    }
+  };
 
   return (
     <div className="cartitems">
@@ -44,8 +55,19 @@ const CartItems = () => {
           <h1>Carro total</h1>
           <div>
             <div className="cartitems-total-item">
-              <p>Subtotal</p>
-              <p>${totalAmount}</p>
+              <p>Enviar</p>
+              <div>
+                <button className={deliveryOption === "recoger" ? "selected" : ""} onClick={() => handleDeliveryOption("recoger")}>Recoger en tienda</button>
+                <button className={deliveryOption === "entregar" ? "selected" : ""} onClick={() => handleDeliveryOption("entregar")}>Entregar a casa</button>
+              </div>
+              {deliveryOption === "entregar" && (
+                <input
+                  type="text"
+                  placeholder="Ingrese dirección"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                />
+              )}
             </div>
             <hr />
             <hr />
@@ -54,7 +76,12 @@ const CartItems = () => {
               <h3>${totalAmount}</h3>
             </div>
           </div>
-          <InvoiceGenerator cartItems={cartItems} products={products} totalAmount={totalAmount} />
+          <InvoiceGenerator
+            cartItems={cartItems}
+            products={products}
+            totalAmount={totalAmount}
+            address={address}
+          />
         </div>
       </div>
     </div>
