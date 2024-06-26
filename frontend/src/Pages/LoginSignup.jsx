@@ -147,10 +147,10 @@ const LoginSignup = () => {
           <p className="loginsignup-login">Ya tienes una cuenta? <span onClick={() => { setState("Login") }}>Login aquí</span></p>
         )}
 
-        <div className="loginsignup-agree">
+        {/* <div className="loginsignup-agree">
           <input type="checkbox" name="" id="" />
           <p>Al continuar, acepto los términos de uso y la política de privacidad.</p>
-        </div>
+        </div> */}
       </div>
     </div>
   );

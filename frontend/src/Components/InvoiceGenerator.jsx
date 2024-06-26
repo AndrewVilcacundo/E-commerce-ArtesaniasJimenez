@@ -41,6 +41,32 @@ const InvoiceGenerator = ({ cartItems, products, totalAmount, address }) => {
       doc.line(10, 72, 100, 72);
     };
 
+    // Nueva función para agregar los detalles del banco
+    const addBankDetails = () => {
+      const startX = 210;
+      const startY = 28;
+      const lineSpacing = 10;
+
+      doc.setFontSize(12);
+      doc.setFont("times", "normal");
+
+      const bankDetails = [
+        "Datos para transferencia:",
+        "Banco Pichincha",
+        "Cuenta corriente",
+        "3024480104",
+        "Nombre: Ricardo Vilcacundo",
+        "Ci: 1703681526"
+      ];
+
+      bankDetails.forEach((detail, index) => {
+        doc.text(detail, startX, startY + index * lineSpacing);
+      });
+
+      // Agregar la imagen del banco
+      
+    };
+
     // Función para agregar detalles de la orden en celdas
     const addOrderDetails = () => {
       let y = 80;
@@ -113,7 +139,8 @@ const InvoiceGenerator = ({ cartItems, products, totalAmount, address }) => {
     const finalizeInvoice = () => {
       doc.setFontSize(14);
       doc.setFont("times", "bold");
-      doc.text("Gracias por su compra!", 140, 190, { align: 'center' }); // Centrado horizontalmente
+      doc.text("Recuerda mandar la nota de compra al Whatsapp", 140, 190, { align: 'center' }); // Centrado horizontalmente
+      doc.text("¡Gracias por su compra!", 140, 200, { align: 'center' }); // Centrado horizontalmente
     };
 
     // Agregar la imagen del logo de la tienda con tamaño ajustable
@@ -123,6 +150,7 @@ const InvoiceGenerator = ({ cartItems, products, totalAmount, address }) => {
 
     // Llamar a las funciones para agregar contenido al documento
     addStoreInfo();
+    addBankDetails(); // Llamar a la nueva función para agregar los detalles del banco
     addOrderDetails();
     addTotalAndAddress();
     finalizeInvoice();
@@ -132,7 +160,7 @@ const InvoiceGenerator = ({ cartItems, products, totalAmount, address }) => {
   };
 
   return (
-    <button onClick={generateInvoice}>PROCEDER A PAGAR</button>
+    <button onClick={generateInvoice}>GENERAR NOTA DE COMPRA</button>
   );
 };
 
