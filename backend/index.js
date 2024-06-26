@@ -50,8 +50,15 @@ let transporter = nodemailer.createTransport({
 //2GHjis1G1rc1EMpl
 
 // Database Connection With MongoDB
+// Database Connection With MongoDB
 
-mongoose.connect("mongodb+srv://sandovalbrandon1027:2GHjis1G1rc1EMpl@cluster0.8yp9gqt.mongodb.net/probando")
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => console.log("Conectado a MongoDB"))
+.catch((error) => console.error("Error al conectar a MongoDB:", error));
+//mongoose.connect("mongodb+srv://sandovalbrandon1027:2GHjis1G1rc1EMpl@cluster0.8yp9gqt.mongodb.net/probando")
 //mongoose.connect("mongodb+srv://sandovalbrandon1027:PvQEAZBx8F2aJyLU@cluster0.ixeawgw.mongodb.net/e-comerce");
 //mongoose.connect("mongodb+srv://andrewmateo1503:kZujIsqjNPeRFbBX@cluster1.u8fdtxz.mongodb.net/tesis2");
 // paste your mongoDB Connection string above with password
@@ -289,17 +296,20 @@ app.post('/signup', async (req, res) => {
   let success = false;
 
   try {
+    if (!req.body.email) {
+      return res.status(400).json({ success: success, errors: "El campo de correo electrónico está vacío." });
+    }
+
     let check = await Users.findOne({ email: req.body.email });
     if (check) {
       return res.status(400).json({ success: success, errors: "Usuario existente encontrado con este correo electrónico." });
     }
 
     let cart = {};
-    for (let i = 0; i < 300; i++) {
+    for (let i = 0; i < 50; i++) {
       cart[i] = 0;
     }
 
-    // Encriptar la contraseña
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
@@ -308,16 +318,17 @@ app.post('/signup', async (req, res) => {
       email: req.body.email,
       password: hashedPassword,
       cartData: cart,
-      isVerified: false, // Agrega un campo para verificar el correo
+      isVerified: false,
     });
 
     await user.save();
+    console.log("Usuario guardado:", user);
 
-    // Crear un token de verificación
     const verificationToken = jwt.sign({ id: user.id }, 'verification_secret', { expiresIn: '1h' });
 
-    // Enviar correo de verificación
     const verificationUrl = `http://localhost:${port}/verify/${verificationToken}`;
+    console.log("URL de verificación:", verificationUrl);
+
     await transporter.sendMail({
       from: 'brandon.sandoval@epn.edu.ec',
       to: user.email,
@@ -326,7 +337,6 @@ app.post('/signup', async (req, res) => {
     });
 
     success = true;
-    // Cambiar la respuesta aquí para informar sobre el correo de verificación
     res.status(200).json({ success: success, message: "Usuario registrado. Se ha enviado un correo de verificación." });
   } catch (error) {
     console.error(error);
