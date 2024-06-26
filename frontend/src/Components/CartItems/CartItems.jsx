@@ -57,7 +57,7 @@ const CartItems = () => {
             <div className="cartitems-total-item">
               <p>Enviar</p>
               <div>
-                <button className={deliveryOption === "recoger" ? "selected" : ""} onClick={() => handleDeliveryOption("recoger")}>Recoger en tienda</button>
+                <button className={deliveryOption === "recoger" ? "selected" : ""} onClick={() => handleDeliveryOption("recoger")}>Recoger productos en la tienda</button>
                 <button className={deliveryOption === "entregar" ? "selected" : ""} onClick={() => handleDeliveryOption("entregar")}>Entregar a casa</button>
               </div>
               {deliveryOption === "entregar" && (
