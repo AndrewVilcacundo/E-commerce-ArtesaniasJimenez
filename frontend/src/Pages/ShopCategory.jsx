@@ -6,7 +6,7 @@ const ShopCategory = (props) => {
   const [allproducts, setAllProducts] = useState([]);
 
   useEffect(() => {
-    fetch('${process.env.REACT_APP_API_URL}/api/products')
+    fetch('http://localhost:4000/api/products')
       .then(response => response.json())
       .then(data => setAllProducts(data))
       .catch(error => console.error('Error fetching products:', error));

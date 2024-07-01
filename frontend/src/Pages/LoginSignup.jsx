@@ -42,7 +42,7 @@ const LoginSignup = () => {
     if (!validateFields()) return;
 
     let dataObj;
-    await fetch('${process.env.REACT_APP_API_URL}/login', {
+    await fetch('http://localhost:4000/login', {
       method: 'POST',
       headers: {
         Accept: 'application/form-data',
@@ -66,7 +66,7 @@ const LoginSignup = () => {
   
     try {
       console.log("Formulario enviado:", formData);
-      const response = await fetch('${process.env.REACT_APP_API_URL}/signup', {
+      const response = await fetch('http://localhost:4000/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ const LoginSignup = () => {
     if (!validateFields()) return;
 
     try {
-      const response = await fetch('${process.env.REACT_APP_API_URL}/reset-password', {
+      const response = await fetch('http://localhost:4000/reset-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

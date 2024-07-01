@@ -23,7 +23,7 @@ const Update = () => {
             let formData = new FormData();
             formData.append('product', image);
 
-            const response = await fetch('${process.env.REACT_APP_API_URL}/upload', {
+            const response = await fetch('http://localhost:4000/upload', {
                 method: 'POST',
                 body: formData,
             });
@@ -39,7 +39,7 @@ const Update = () => {
 
         console.log("Producto a actualizar:", product);
 
-        const response = await fetch('${process.env.REACT_APP_API_URL}/updateproduct', {
+        const response = await fetch('http://localhost:4000/updateproduct', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ const Update = () => {
     };
 
     const searchProduct = async () => {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/product/${searchTerm}`);
+        const response = await fetch(`http://localhost:4000/product/${searchTerm}`);
         const data = await response.json();
         if (data.success) {
             setProductDetails(data.product);
