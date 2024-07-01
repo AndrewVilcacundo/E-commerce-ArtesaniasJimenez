@@ -6,7 +6,7 @@ const ShopCategory = (props) => {
   const [allproducts, setAllProducts] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:4000/api/products')
+    fetch('https://e-commerce-artesaniasjimenez-backend.onrender.com/api/products')
       .then(response => response.json())
       .then(data => setAllProducts(data))
       .catch(error => console.error('Error fetching products:', error));

@@ -23,7 +23,7 @@ const Update = () => {
             let formData = new FormData();
             formData.append('product', image);
 
-            const response = await fetch('http://localhost:4000/upload', {
+            const response = await fetch('https://e-commerce-artesaniasjimenez-backend.onrender.com/upload', {
                 method: 'POST',
                 body: formData,
             });
@@ -39,7 +39,7 @@ const Update = () => {
 
         console.log("Producto a actualizar:", product);
 
-        const response = await fetch('http://localhost:4000/updateproduct', {
+        const response = await fetch('https://e-commerce-artesaniasjimenez-backend.onrender.com/updateproduct', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ const Update = () => {
     };
 
     const searchProduct = async () => {
-        const response = await fetch(`http://localhost:4000/product/${searchTerm}`);
+        const response = await fetch(`https://e-commerce-artesaniasjimenez-backend.onrender.com/product/${searchTerm}`);
         const data = await response.json();
         if (data.success) {
             setProductDetails(data.product);
