@@ -330,7 +330,7 @@ app.post('/signup', async (req, res) => {
 
     const verificationToken = jwt.sign({ id: user.id }, 'verification_secret', { expiresIn: '1h' });
 
-    const verificationUrl = `http://localhost:${port}/verify/${verificationToken}`;
+    const verificationUrl = `https://e-commerce-artesaniasjimenez-backend.onrender.com/verify/${verificationToken}`;
     console.log("URL de verificación:", verificationUrl);
 
     await transporter.sendMail({
