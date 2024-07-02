@@ -7,7 +7,7 @@ const Offers = () => {
       <div className="offers-left">
         <h1>Ubicación</h1>
         <h1>del negocio</h1>
-        <p>Dar click a la imagen para ir a la ubicación</p>
+        <p>Dar click para ir a la ubicación</p>
       </div>
       <div className="offers-right">
         <iframe
