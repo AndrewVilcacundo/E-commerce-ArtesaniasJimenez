@@ -7,7 +7,7 @@ const Breadcrums = (props) => {
 
   // Verifica si product está definido y tiene las propiedades category y name
   if (!product || !product.category || !product.name) {
-    return <div>Loading...</div>; // O algún otro componente de respaldo
+    return <div>Cargando...</div>; // O algún otro componente de respaldo
   }
 
   return (

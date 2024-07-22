@@ -7,7 +7,10 @@ const LoginSignup = () => {
   const [formData, setFormData] = useState({ username: "", email: "", password: "", confirmPassword: "" });
 
   const changeHandler = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (value.length <= 40) {
+      setFormData({ ...formData, [name]: value });
+    }
   }
 
   const validateFields = () => {
@@ -16,7 +19,7 @@ const LoginSignup = () => {
         alert("Por favor, complete todos los campos.");
         return false;
       }
-    } else if (state === "Sign Up") {
+    } else if (state === "Registrarse") {
       if (!formData.username || !formData.email || !formData.password || !formData.confirmPassword) {
         alert("Por favor, complete todos los campos.");
         return false;
@@ -25,7 +28,7 @@ const LoginSignup = () => {
         alert("Las contraseñas no coinciden");
         return false;
       }
-    } else if (state === "Recover Password") {
+    } else if (state === "Recuperar Contraseña") {
       if (!formData.email || !formData.password || !formData.confirmPassword) {
         alert("Por favor, complete todos los campos.");
         return false;
@@ -63,7 +66,7 @@ const LoginSignup = () => {
 
   const signup = async () => {
     if (!validateFields()) return;
-  
+
     try {
       console.log("Formulario enviado:", formData);
       const response = await fetch('https://e-commerce-artesaniasjimenez-backend.onrender.com/signup', {
@@ -73,13 +76,13 @@ const LoginSignup = () => {
         },
         body: JSON.stringify(formData),
       });
-  
+
       if (!response.ok) {
         throw new Error('Error al registrar usuario');
       }
-  
+
       const data = await response.json();
-  
+
       if (data.success) {
         localStorage.setItem('auth-token', data.token);
         alert('Usuario registrado. Se ha enviado un correo de verificación.');
@@ -92,7 +95,6 @@ const LoginSignup = () => {
       alert('Ha ocurrido un error. Por favor, inténtalo de nuevo más tarde.');
     }
   };
-  
 
   const recoverPassword = async () => {
     if (!validateFields()) return;
@@ -124,29 +126,29 @@ const LoginSignup = () => {
       <div className="loginsignup-container">
         <h1>{state}</h1>
         <div className="loginsignup-fields">
-          {state === "Sign Up" && (
+          {state === "Registrarse" && (
             <input type="text" placeholder="Tu nombre" name="username" value={formData.username} onChange={changeHandler} />
           )}
           <input type="email" placeholder="Correo electrónico" name="email" value={formData.email} onChange={changeHandler} />
           <input type="password" placeholder="Contraseña" name="password" value={formData.password} onChange={changeHandler} />
-          {(state === "Recover Password" || state === "Sign Up") && (
+          {(state === "Recuperar Contraseña" || state === "Registrarse") && (
             <input type="password" placeholder="Confirmar Contraseña" name="confirmPassword" value={formData.confirmPassword} onChange={changeHandler} />
           )}
         </div>
 
         <button onClick={() => {
           if (state === "Login") login();
-          else if (state === "Sign Up") signup();
-          else if (state === "Recover Password") recoverPassword();
+          else if (state === "Registrarse") signup();
+          else if (state === "Recuperar Contraseña") recoverPassword();
         }}>Continuar</button>
 
         {state === "Login" ? (
           <>
-            <p className="loginsignup-login">Crear una cuenta? <span onClick={() => { setState("Sign Up") }}>Click aquí</span></p>
-            <p className="loginsignup-login">Olvidaste tu contraseña? <span onClick={() => { setState("Recover Password") }}>Click aquí</span></p>
+            <p className="loginsignup-login">¿Quieres crear una cuenta? <span onClick={() => { setState("Registrarse") }}>Click aquí</span></p>
+            <p className="loginsignup-login">¿Olvidaste tu contraseña? <span onClick={() => { setState("Recuperar Contraseña") }}>Click aquí</span></p>
           </>
         ) : (
-          <p className="loginsignup-login">Ya tienes una cuenta? <span onClick={() => { setState("Login") }}>Login aquí</span></p>
+          <p className="loginsignup-login">¿Ya tienes una cuenta? <span onClick={() => { setState("Login") }}>Inicia sesión aquí</span></p>
         )}
 
         {/* <div className="loginsignup-agree">

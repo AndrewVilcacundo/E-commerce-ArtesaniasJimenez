@@ -266,7 +266,7 @@ app.post('/login', async (req, res) => {
   if (user) {
     // Verificar si el usuario ha verificado su correo
     if (!user.isVerified) {
-      return res.status(400).json({ success: success, errors: "Por favor, verifica tu correo electrónico antes de iniciar sesión." });
+      return res.status(400).json({ success: success, errors: "Por favor, verifica tu correo electrónico antes de registrarte." });
     }
     
     // Comparando la contraseña con la ingresada
@@ -296,7 +296,7 @@ app.post('/login', async (req, res) => {
 
 //Creando endpoint para el resgitro de nuevos usuarios
 app.post('/signup', async (req, res) => {
-  console.log("Sign Up");
+  console.log("Registrarse");
   let success = false;
 
   try {
