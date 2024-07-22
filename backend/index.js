@@ -296,7 +296,7 @@ app.post('/login', async (req, res) => {
 
 //Creando endpoint para el resgitro de nuevos usuarios
 app.post('/signup', async (req, res) => {
-  console.log("Registrarse");
+  console.log("Sign up");
   let success = false;
 
   try {

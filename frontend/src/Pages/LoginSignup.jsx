@@ -19,7 +19,7 @@ const LoginSignup = () => {
         alert("Por favor, complete todos los campos.");
         return false;
       }
-    } else if (state === "Registrarse") {
+    } else if (state === "Sign up") {
       if (!formData.username || !formData.email || !formData.password || !formData.confirmPassword) {
         alert("Por favor, complete todos los campos.");
         return false;
@@ -28,7 +28,7 @@ const LoginSignup = () => {
         alert("Las contraseñas no coinciden");
         return false;
       }
-    } else if (state === "Recuperar Contraseña") {
+    } else if (state === "Recover Password") {
       if (!formData.email || !formData.password || !formData.confirmPassword) {
         alert("Por favor, complete todos los campos.");
         return false;
@@ -126,26 +126,26 @@ const LoginSignup = () => {
       <div className="loginsignup-container">
         <h1>{state}</h1>
         <div className="loginsignup-fields">
-          {state === "Registrarse" && (
+          {state === "Sign up" && (
             <input type="text" placeholder="Tu nombre" name="username" value={formData.username} onChange={changeHandler} />
           )}
           <input type="email" placeholder="Correo electrónico" name="email" value={formData.email} onChange={changeHandler} />
           <input type="password" placeholder="Contraseña" name="password" value={formData.password} onChange={changeHandler} />
-          {(state === "Recuperar Contraseña" || state === "Registrarse") && (
+          {(state === "Recover Password" || state === "Sign up") && (
             <input type="password" placeholder="Confirmar Contraseña" name="confirmPassword" value={formData.confirmPassword} onChange={changeHandler} />
           )}
         </div>
 
         <button onClick={() => {
           if (state === "Login") login();
-          else if (state === "Registrarse") signup();
-          else if (state === "Recuperar Contraseña") recoverPassword();
+          else if (state === "Sign up") signup();
+          else if (state === "Recover Password") recoverPassword();
         }}>Continuar</button>
 
         {state === "Login" ? (
           <>
-            <p className="loginsignup-login">¿Quieres crear una cuenta? <span onClick={() => { setState("Registrarse") }}>Click aquí</span></p>
-            <p className="loginsignup-login">¿Olvidaste tu contraseña? <span onClick={() => { setState("Recuperar Contraseña") }}>Click aquí</span></p>
+            <p className="loginsignup-login">¿Quieres crear una cuenta? <span onClick={() => { setState("Sign up") }}>Click aquí</span></p>
+            <p className="loginsignup-login">¿Olvidaste tu contraseña? <span onClick={() => { setState("Recover Password") }}>Click aquí</span></p>
           </>
         ) : (
           <p className="loginsignup-login">¿Ya tienes una cuenta? <span onClick={() => { setState("Login") }}>Inicia sesión aquí</span></p>
